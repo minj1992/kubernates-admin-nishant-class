@@ -67,6 +67,20 @@ Create a file named `test.yml` with the following content. This manifest automat
 
 #### The Full Manifest (`test.yml`)
 ```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+  namespace: nishant-namespace
+spec:
+  clusterIP: None
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
