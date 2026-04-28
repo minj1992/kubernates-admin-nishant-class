@@ -178,7 +178,6 @@ db.getMongo().setReadPref("secondaryPreferred");
 db = db.getSiblingDB("lab_db");
 db.test_collection.find().pretty();
 '
-'
 ```
 
 ---
