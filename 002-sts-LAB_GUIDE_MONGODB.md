@@ -164,7 +164,7 @@ kubectl exec -it mongodb-ss-0 -n nishant-namespace -- mongosh --eval "rs.status(
 ### Write on Primary Node
 ```bash
 kubectl exec -it mongodb-ss-0 -n nishant-namespace -- mongosh --eval '
-use lab_db;
+db = db.getSiblingDB("lab_db");
 db.test_collection.insertOne({ name: "Venky", tool: "Zencoder", date: new Date() });
 '
 ```
@@ -174,9 +174,10 @@ Log into a secondary node (e.g., `mongodb-ss-1`):
 ```bash
 # Secondary nodes require "setSecondaryOk()" to allow reads
 kubectl exec -it mongodb-ss-1 -n nishant-namespace -- mongosh --eval '
-db.getMongo().setSecondaryOk();
-use lab_db;
+db.getMongo().setReadPref("secondaryPreferred");
+db = db.getSiblingDB("lab_db");
 db.test_collection.find().pretty();
+'
 '
 ```
 
